@@ -53,13 +53,34 @@ double rad2deg(double rad) {
  * @return The distance between the two points in kilometers
  */
 double distance(const QPointF& a, const QPointF& b) {
+	Point pa, pb;
+	pa.x = a.x();
+	pa.y = a.y();
+	pb.x = b.x();
+	pb.y = b.y();
+	return distance(pa, pb);
+}
+
+double distance(const Point& a, const Point& b) {
 	const double earthRadiusKm = 6371.0;
 	double       lat1r, lon1r, lat2r, lon2r, u, v;
-	lat1r = deg2rad(a.y());
-	lon1r = deg2rad(a.x());
-	lat2r = deg2rad(b.y());
-	lon2r = deg2rad(b.x());
+	lat1r = deg2rad(a.y);
+	lon1r = deg2rad(a.x);
+	lat2r = deg2rad(b.y);
+	lon2r = deg2rad(b.x);
 	u     = sin((lat2r - lat1r) / 2);
 	v     = sin((lon2r - lon1r) / 2);
 	return 2.0 * earthRadiusKm * asin(sqrt(u * u + cos(lat1r) * cos(lat2r) * v * v));
+}
+
+BBox BBox::fromP(Point p, double distance) {
+	auto deltaMeter = distance * cos45;
+	auto dX         =  deltaMeter * dXrate;
+	auto dY         =  deltaMeter * dYrate ;
+	BBox neu;
+	neu.tl.x = p.x - dX;
+	neu.br.x = p.x + dX;
+	neu.tl.y = p.y - dY;
+	neu.br.y = p.y + dY;
+	return neu;
 }
