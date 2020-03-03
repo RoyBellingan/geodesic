@@ -74,13 +74,52 @@ double distance(const Point& a, const Point& b) {
 }
 
 BBox BBox::fromP(Point p, double distance) {
-	auto deltaMeter = distance * cos45;
-	auto dX         =  deltaMeter * dXrate;
-	auto dY         =  deltaMeter * dYrate ;
+	auto dX         =  distance * dXrate;
+	auto dY         =  distance * dYrate;
 	BBox neu;
 	neu.tl.x = p.x - dX;
 	neu.br.x = p.x + dX;
 	neu.tl.y = p.y - dY;
 	neu.br.y = p.y + dY;
 	return neu;
+}
+
+double Point::getY() const
+{
+    return y;
+}
+
+void Point::setY(double value)
+{
+    y = value;
+}
+
+double Point::getLat() const
+{
+    return y;
+}
+
+void Point::setLat(double value)
+{
+    y = value;
+}
+
+double Point::getLon() const
+{
+    return x;
+}
+
+void Point::setLon(double value)
+{
+    x = value;
+}
+
+double Point::getX() const
+{
+    return x;
+}
+
+void Point::setX(double value)
+{
+    x = value;
 }
